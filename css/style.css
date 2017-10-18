@@ -480,8 +480,7 @@ img.img-circle.team-img {
     padding: 80px 0;
     color: #aaa;
 	position:relative;
-    background: linear-gradient(to top,#1c232c,#415164);
- 
+    background-color: -webkit-linear-gradient(to top,#1c232c,#415164);
 }
 #servicesa{
    /* Old browsers */
