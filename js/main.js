@@ -12,11 +12,12 @@ function main() {
             }
         });
 
-        // Testimonial Slider
+        // selfTestimonial Slider
         $('a.page-scroll').click(function () {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                 var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                // target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                target = target.length ? target :$(this.hash.slice(1)) ;
                 if (target.length) {
                     $('html,body').animate({
                         scrollTop: target.offset().top - 40
@@ -29,20 +30,6 @@ function main() {
         /*====================================
         Show Menu on Book
         ======================================*/
-        $(window).bind('scroll', function () {
-            var navHeight = $(window).height() - 100;
-            if ($(window).scrollTop() > navHeight) {
-                $('.navbar-default').addClass('on');
-            } else {
-                $('.navbar-default').removeClass('on');
-            }
-        });
-
-        $('body').scrollspy({
-            target: '.navbar-default',
-            offset: 80
-        })
-
         $(document).ready(function () {
             $("#testimonial").owlCarousel({
                 navigation: false, // Show next and prev buttons
@@ -82,27 +69,52 @@ function main() {
             });
 
         });
-
-        // ****************************************************************
-        // counterUp
-        // ****************************************************************
-
-        $(document).ready(function ($) {
-            if ($("span.count").length > 0) {
-                $('span.count').counterUp({
-                    delay: 10, // the delay time in ms
-                    time: 1000 // the speed time in ms
-                });
+        // ======================3D convas
+        $(function () {
+            FSS("3dConvas", "output");
+        });
+        // ================== 滚动监听
+        $(function () {
+            var scrollPoint = new Waypoint({
+                element: document.getElementById('basics-infor'),
+                handler: function () {
+                    var i = 0;
+                    var timer = setInterval(function() {
+                        $(".zoomIn").eq(i).css({ "display": "block" })
+                        i += 1;
+                        if (i >= $(".zoomIn").length) {
+                            clearInterval(timer);
+                        }
+                    }, 600)
+                },
+                offset: '75%'
+            })
+            var wayPonit = new Waypoint({
+                element: document.getElementById("skills"),
+                handler: function () {
+                    var i = 0;
+                    var timer = setInterval(function() {
+                        $(".about-skill").eq(i).css({ "display": "block" })
+                        i += 1;
+                        if (i >= $(".about-skill").length) {
+                            clearInterval(timer);
+                        }
+                    }, 600)
+                },
+                offset: '30%'
+            })
+        })
+        //====================判断终端类型
+        $(function () {
+            var u = navigator.userAgent;
+            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1 || u.indexOf('iPhone') > -1 || u.indexOf('Windows Phone') > -1 || navigator.userAgent.indexOf("iPad") > -1) {
+              $(".hover-bg .hover-text").css({ 'opacity': '1' });
+      
+              $(".hover-bg .hover-text>h4").css({ 'opacity': '1', '-webkit-transform': 'translateY(0)', 'transform': 'translateY(0)' });
+      
+              $(".hover-bg .hover-text>i").css({ 'opacity': '1' });
             }
-        });
-
-  	/*====================================
-    Pretty Photo
-    ======================================*/
-        $("a[rel^='prettyPhoto']").prettyPhoto({
-            social_tools: false
-        });
-
+          });
     }());
 
 
